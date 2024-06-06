@@ -13,7 +13,7 @@ RUN ARCH=linux-x64 && \
 FROM build AS publish
 RUN ARCH=linux-x64 && \
     if [ "$(uname -m)" = "aarch64" ]; then ARCH=linux-arm64; fi && \
-    dotnet publish "./src/GenGithubAppInstallationToken/GenGithubAppInstallationToken.csproj" -r ${ARCH} -c Release -o /app/publish
+    dotnet publish "./src/GenGithubAppInstallationToken/GenGithubAppInstallationToken.csproj" --no-restore -r ${ARCH} -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
