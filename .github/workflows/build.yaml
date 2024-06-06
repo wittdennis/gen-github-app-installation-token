@@ -22,20 +22,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: cache podman storage
-        uses: actions/cache@v4.0.2
-        with:
-          path: ~/.local/share/containers/storage
-          key: podman-storage-${{ matrix.platform }}
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3.0.0
-
       - name: export architecture name (removing os prefix)
         run: |
           echo "PODMAN_ARCH=${PLATFORM#*/}" >>${GITHUB_ENV}
         env:
           PLATFORM: ${{ matrix.platform }}
+
+      - name: cache podman storage
+        uses: actions/cache@v4.0.2
+        with:
+          path: ~/.local/share/containers/storage
+          key: podman-storage-${{ env.PODMAN_ARCH }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3.0.0
 
       - uses: docker/metadata-action@v5
         id: meta
