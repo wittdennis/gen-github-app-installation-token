@@ -5,11 +5,15 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 COPY . .
-RUN dotnet restore
-RUN dotnet build "./src/GenGithubAppInstallationToken/GenGithubAppInstallationToken.csproj" --no-restore -c Release -o /app/build
+RUN ARCH=linux-x64 && \
+    if [ "$(uname -m)" = "aarch64" ]; then ARCH=linux-arm64; fi && \
+    dotnet restore -r ${ARCH} && \
+    dotnet build "./src/GenGithubAppInstallationToken/GenGithubAppInstallationToken.csproj" --no-restore -r ${ARCH} -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "./src/GenGithubAppInstallationToken/GenGithubAppInstallationToken.csproj" -c Release -o /app/publish
+RUN ARCH=linux-x64 && \
+    if [ "$(uname -m)" = "aarch64" ]; then ARCH=linux-arm64; fi && \
+    dotnet publish "./src/GenGithubAppInstallationToken/GenGithubAppInstallationToken.csproj" -r ${ARCH} -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
