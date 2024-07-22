@@ -35,7 +35,7 @@ jobs:
           key: podman-storage-${{ env.PODMAN_ARCH }}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3.1.0
+        uses: docker/setup-qemu-action@v3.2.0
 
       - uses: docker/metadata-action@v5
         id: meta
