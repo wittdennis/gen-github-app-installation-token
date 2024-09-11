@@ -3,7 +3,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0.8-alpine3.19 AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 COPY . .
 RUN ARCH=linux-x64 && \
     if [ "$(uname -m)" = "aarch64" ]; then ARCH=linux-arm64; fi && \
