@@ -14,14 +14,14 @@ jobs:
   release:
     runs-on: ubuntu-24.04
     steps:
-      - uses: dawidd6/action-download-artifact@v3.1.4
+      - uses: dawidd6/action-download-artifact@v6
         name: Download amd64 image
         with:
           name: ${{ github.sha }}-amd64
           workflow: build.yaml
           path: /tmp
           search_artifacts: true
-      - uses: dawidd6/action-download-artifact@v3.1.4
+      - uses: dawidd6/action-download-artifact@v6
         name: Download arm64 image
         with:
           name: ${{ github.sha }}-arm64
