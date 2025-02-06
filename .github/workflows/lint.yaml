@@ -1,0 +1,7 @@
+name: go-lint
+
+on: [push]
+
+jobs:
+  lint:
+    uses: wittdennis/pipelines/.github/workflows/go-lint.yaml@1.8.0
